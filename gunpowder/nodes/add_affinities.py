@@ -20,7 +20,7 @@ def seg_to_affgraph(seg, nhood):
     shape = seg.shape
     nEdge = nhood.shape[0]
     dims = nhood.shape[1]
-    aff = np.zeros((nEdge,) + shape, dtype=np.int32)
+    aff = np.zeros((nEdge,) + shape, dtype=np.uint64)
 
     if dims == 2:
         for e in range(nEdge):
@@ -221,7 +221,7 @@ class AddAffinities(BatchFilter):
         logger.debug("computing ground-truth affinities from labels")
 
         affinities = seg_to_affgraph(
-            batch.arrays[self.labels].data.astype(np.int32), self.affinity_neighborhood
+            batch.arrays[self.labels].data.astype(np.uint64), self.affinity_neighborhood
         ).astype(self.dtype)
 
         # crop affinities to requested ROI
